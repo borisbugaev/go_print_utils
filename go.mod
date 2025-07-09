@@ -1,3 +1,3 @@
-module github.com/borisbugaev/go_print_utils/printutils
+module printutils
 
 go 1.24.4
