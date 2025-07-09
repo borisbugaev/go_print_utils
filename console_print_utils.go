@@ -11,13 +11,13 @@ const C_UP string = "\x1b[1A"
 const L_CLR string = "\x1b[2K"
 const ABC_LEN int = 'Z' - 'A'
 
-func clear_lines(count int) {
+func Clear_Lines(count int) {
 	for range count {
 		fmt.Printf("%s%s", C_UP, L_CLR)
 	}
 }
 
-func print_lines(lines string) int {
+func Print_Lines(lines string) int {
 	fmt.Printf("%s", lines)
 	return strings.Count(lines, "\n")
 }
@@ -34,7 +34,7 @@ func mc_letter(index int) string {
 	return my_letter
 }
 
-func line_select_mc(fields []string) string {
+func Line_Select_MC(fields []string) string {
 	index := 0
 	my_fields := ""
 	fields_map := map[string]string{}
@@ -45,13 +45,13 @@ func line_select_mc(fields []string) string {
 		index++
 	}
 	my_fields = fmt.Sprintf("%s>> ", my_fields)
-	line_count := print_lines(my_fields)
+	line_count := Print_Lines(my_fields)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	selected_field, ok := fields_map[strings.ToUpper(scanner.Text())]
 	if !ok {
 		selected_field = "\a"
 	}
-	clear_lines(line_count)
+	Clear_Lines(line_count)
 	return selected_field
 }
