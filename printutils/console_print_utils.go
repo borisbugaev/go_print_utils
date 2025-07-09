@@ -10,6 +10,7 @@ import (
 const C_UP string = "\x1b[1A"
 const L_CLR string = "\x1b[2K"
 const ABC_LEN int = 'Z' - 'A'
+const UPDATE bool = true
 
 func Clear_Lines(count int) {
 	for range count {
