@@ -35,7 +35,7 @@ func mc_letter(index int) string {
 }
 
 func Line_Select_MC(fields []string) string {
-	index := 0
+	index, line_count := 0, 1
 	my_fields := ""
 	fields_map := map[string]string{}
 	for _, field := range fields {
@@ -45,7 +45,7 @@ func Line_Select_MC(fields []string) string {
 		index++
 	}
 	my_fields = fmt.Sprintf("%s>> ", my_fields)
-	line_count := Print_Lines(my_fields)
+	line_count += Print_Lines(my_fields)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	selected_field, ok := fields_map[strings.ToUpper(scanner.Text())]
