@@ -3,6 +3,7 @@ package printutils
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
@@ -22,7 +23,7 @@ func Clear_Lines(count int) {
 func Print_Lines(lines string) int {
 	state, err := term.MakeRaw(int(os.Stdin.Fd()))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer term.Restore(int(os.Stdin.Fd()), state)
 	width, _, _ := term.GetSize(int(os.Stdin.Fd()))
