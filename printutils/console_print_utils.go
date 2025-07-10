@@ -29,7 +29,7 @@ func Print_Lines(lines string) int {
 	for line := range line_seq {
 		abs_line_counter++
 		line_len := len(line)
-		for line_len > width {
+		for line_len > width && width != 0 {
 			abs_line_counter++
 			line_len -= width
 		}
