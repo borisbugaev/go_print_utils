@@ -33,8 +33,10 @@ func Print_Lines(lines string) int {
 	line_seq := strings.SplitSeq(lines, "\n")
 	for line := range line_seq {
 		abs_line_counter++
-		if len(line) > width {
-			abs_line_counter += len(line) / width
+		line_len := len(line)
+		for line_len > width {
+			abs_line_counter++
+			line_len -= width
 		}
 	}
 	return abs_line_counter
