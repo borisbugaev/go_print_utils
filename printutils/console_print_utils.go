@@ -34,6 +34,12 @@ func mc_letter(index int) string {
 	return my_letter
 }
 
+func mc_input_filter(content string) string {
+	content = strings.Trim(content, " \n")
+	content = strings.ToUpper(content)
+	return content
+}
+
 func Line_Select_MC(fields []string) string {
 	index := 0
 	my_fields := ""
@@ -48,10 +54,19 @@ func Line_Select_MC(fields []string) string {
 	line_count := Print_Lines(my_fields)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	selected_field, ok := fields_map[strings.ToUpper(scanner.Text())]
-	if !ok {
-		selected_field = "\a"
+	response_seq := strings.SplitSeq(mc_input_filter(scanner.Text()), " ")
+	response_fields := ""
+	for response := range response_seq {
+		selected_field, ok := fields_map[response]
+		if !ok {
+			continue
+		}
+		response_fields = fmt.Sprintf("%s,%s", response_fields, selected_field)
+	}
+	response_fields = strings.Trim(response_fields, ",")
+	if response_fields == "" {
+		response_fields = "\a"
 	}
 	Clear_Lines(line_count)
-	return selected_field
+	return response_fields
 }
