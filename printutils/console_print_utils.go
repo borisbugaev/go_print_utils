@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"golang.org/x/term"
 )
 
 const C_UP string = "\x1b[1A"
@@ -18,8 +20,24 @@ func Clear_Lines(count int) {
 }
 
 func Print_Lines(lines string) int {
+	state, err := term.MakeRaw(int(os.Stdin.Fd()))
+	if err != nil {
+		panic(err)
+	}
+	defer term.Restore(int(os.Stdin.Fd()), state)
+	width, _, _ := term.GetSize(int(os.Stdin.Fd()))
+
 	fmt.Printf("%s", lines)
-	return strings.Count(lines, "\n")
+
+	abs_line_counter := 0
+	line_seq := strings.SplitSeq(lines, "\n")
+	for line := range line_seq {
+		abs_line_counter++
+		if len(line) > width {
+			abs_line_counter += len(line) / width
+		}
+	}
+	return abs_line_counter
 }
 
 func mc_letter(index int) string {
