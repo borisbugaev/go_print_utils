@@ -25,6 +25,7 @@ func Print_Lines(lines string) int {
 	fmt.Printf("%s", lines)
 
 	abs_line_counter := 0
+	lines = strings.Trim(lines, "\n")
 	line_seq := strings.SplitSeq(lines, "\n")
 	for line := range line_seq {
 		abs_line_counter++
